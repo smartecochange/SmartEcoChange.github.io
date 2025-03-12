@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register SmartecoChange</title>
+    <script src="https://jncpmz37bpzt.statuspage.io/embed/script.js"></script>
+    <style>
+        body {
+            background-color: #e9f5ff; /* Light blue background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            border-top: 5px solid #007bff; /* Blue top border */
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #007bff; /* Blue color for header */
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 5px;
+            text-align: left;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #007bff; /* Blue border on focus */
+            outline: none;
+        }
+
+        input[readonly] {
+            background-color: #f5f5f5;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 14px 22px;
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Register Smart EcoChange</h1>
+        <form id="userForm">
+            <label for="userId">User ID:</label>
+            <input type="text" id="userId" name="userId" readonly placeholder="Loading..." value="xxxxx">
+            
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required placeholder="Enter your first name" value="">
+            
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required placeholder="Enter your last name" value="">
+            
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="studentId" name="studentId" required placeholder="Enter your student ID" value="">
+            
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required placeholder="Enter your phone number" value="">
+            
+            <button type="button" onclick="sendData()">Submit</button>
+        </form>
+        <div class="footer">Powered by Smart EcoChange</div>
+    </div>
+
+    <script>
+        let userId = "";
+
+        // Initialize LIFF SDK
+        function initializeLiff() {
+            liff.init({ liffId: "2007047992-Llm72KEx" })
+                .then(() => {
+                    if (liff.isLoggedIn()) {
+                        liff.getProfile()
+                            .then(profile => {
+                                userId = profile.userId;
+                                document.getElementById("userId").value = userId;
+                                console.log("userId from LINE: ", userId);
+                            })
+                            .catch(err => {
+                                console.error("Error getting profile:", err);
+                                alert("Error getting user profile.");
+                            });
+                    } else {
+                        liff.login();
+                    }
+                })
+                .catch(err => {
+                    console.error("LIFF Initialization failed:", err);
+                    alert("LIFF Initialization failed.");
+                });
+        }
+
+        // Send data function
+        function sendData() {
+            if (!userId) {
+                alert("User ID not received from LINE. Please try again.");
+                return;
+            }
+
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const studentId = document.getElementById("studentId").value.trim();
+            const phoneNumber = document.getElementById("phoneNumber").value.trim();
+
+            const url = "https://script.google.com/macros/s/AKfycbzPYWaYvmUUWdNys4h47LNgc9f1PU4cogliSE3r621Spt1xY1ZI_GZXy3aUe0N-xN8/exec";
+            const params = new URLSearchParams({
+                userId: userId,
+                firstName: firstName,
+                lastName: lastName,
+                studentId: studentId,
+                phoneNumber: phoneNumber
+            });
+
+            fetch(`${url}?${params}`, {
+                method: "GET"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Response:", data);
+                if (data.status === "success") {
+                    alert("Registration successful");
+                    liff.closeWindow(); // Close LIFF after successful registration
+                } else {
+                    alert("Error in registration.");
+                    liff.closeWindow(); // Close LIFF after registration failure
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error in sending data.");
+                liff.closeWindow(); // Close LIFF after error
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", initializeLiff);
+    </script>
+</body>
+</html>
