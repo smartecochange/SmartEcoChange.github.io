@@ -145,7 +145,7 @@
             fetch(`${url}?${params}`, {
                 method: "GET"
             })
-            .then(response => {
+            .then(response =>response.json()) {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -157,7 +157,7 @@
                     alert("Registration successful");
                     liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
                 } else {
-                    alert("Error");
+                    alert("Error"+ data.message);
                     liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
                 }
             })
