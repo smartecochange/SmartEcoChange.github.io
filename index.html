@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Smart EcoChange</title>
+    <title>Register Smart Ecochange</title>
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <style>
         body {
@@ -71,7 +71,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Register Smart Ecochange</h1>
+        <h1>Register Smart EcoChange </h1>
         <form id="userForm">
             <label for="userId">User ID:</label>
             <input type="text" id="userId" name="userId" readonly placeholder="Loading..." value="">
@@ -142,12 +142,12 @@
                 phoneNumber: phoneNumber
             });
 
-            fetch(${url}?${params}, {
+            fetch(`${url}?${params}`, {
                 method: "GET"
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(HTTP error! status: ${response.status});
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 return response.json();
             })
