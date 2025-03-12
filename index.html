@@ -142,12 +142,12 @@
                 phoneNumber: phoneNumber
             });
 
-            fetch(`${url}?${params}`, {
+            fetch(${url}?${params}, {
                 method: "GET"
             })
-            .then(response =>response.json()) {
+            .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(HTTP error! status: ${response.status});
                 }
                 return response.json();
             })
@@ -157,7 +157,7 @@
                     alert("Registration successful");
                     liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
                 } else {
-                    alert("Error"+ data.message);
+                    alert("Error");
                     liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
                 }
             })
