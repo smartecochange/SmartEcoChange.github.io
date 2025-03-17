@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register BottleBomb</title>
+    <title>Register Smart EcoChange</title>
     <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
     <style>
         body {
@@ -95,7 +95,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Register BottleBomb</h1>
+        <h1>Register Smart EcoChange</h1>
         <form id="userForm">
             <label for="userId">User ID:</label>
             <input type="text" id="userId" name="userId" readonly placeholder="Loading..." value="xxxxx">
@@ -114,7 +114,7 @@
             
             <button type="button" onclick="sendData()">Submit</button>
         </form>
-        <div class="footer">Powered by BottleBomb</div>
+        <div class="footer">Powered by Smart EcoChange</div>
     </div>
 
     <script>
@@ -122,7 +122,7 @@
 
         // Initialize LIFF SDK
         function initializeLiff() {
-            liff.init({ liffId: "2006550278-2lRgXNl1" })
+            liff.init({ liffId: "2007047992-Llm72KEx" })
                 .then(() => {
                     if (liff.isLoggedIn()) {
                         liff.getProfile()
@@ -157,7 +157,7 @@
             const studentId = document.getElementById("studentId").value.trim();
             const phoneNumber = document.getElementById("phoneNumber").value.trim();
 
-            const url = "https://script.google.com/macros/s/AKfycbxdmVuEdBSdx9HMpupsCe3rome75Ce1OAGUh_tQjigJQFHem_8o1slKAQL8l5M_DK8/exec";
+            const url = "https://script.google.com/macros/s/AKfycbyAELsWSmfF0MxMI-rVfSPQIYhmhoJTHfvrDLpd5ud27W_Gml_de4ycRczwSurNvw/exec";
             const params = new URLSearchParams({
                 userId: userId,
                 firstName: firstName,
@@ -181,7 +181,7 @@
                     alert("Registration successful");
                     liff.closeWindow(); // Close LIFF after successful registration
                 } else {
-                    alert("Registration successful.");
+                    alert("Error in registration.");
                     liff.closeWindow(); // Close LIFF after registration failure
                 }
             })
