@@ -151,7 +151,88 @@
                 }
                 return response.json();
             })
-            .then(data => {
+            .then(data => {<script>
+    let userId = "";
+
+    function initializeLiff() {
+        liff.init({ liffId: "2007047992-Llm72KEx" })
+            .then(() => {
+                if (liff.isLoggedIn()) {
+                    liff.getProfile()
+                        .then(profile => {
+                            userId = String(profile.userId); // แปลงเป็น string เพื่อความแน่นอน
+                            document.getElementById("userId").value = userId;
+                            console.log("User ID จาก LINE:", userId);
+                        })
+                        .catch(err => {
+                            console.error("Error getting profile:", err);
+                            alert("Error getting user profile.");
+                        });
+                } else {
+                    liff.login();
+                }
+            })
+            .catch(err => {
+                console.error("LIFF Initialization failed:", err);
+                alert("LIFF Initialization failed.");
+            });
+    }
+
+    function sendData() {
+        if (!userId) {
+            alert("ยังไม่ได้รับ userId จาก LINE. โปรดลองอีกครั้ง.");
+            return;
+        }
+
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const studentId = String(document.getElementById("studentId").value.trim()); // เก็บเป็น string
+        const phoneNumber = document.getElementById("phoneNumber").value.trim();
+
+        if (!firstName || !lastName || !studentId || !phoneNumber) {
+            alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+            return;
+        }
+        if (!/^\d{10}$/.test(phoneNumber)) {
+            alert("Phone Number ต้องเป็นตัวเลข 10 หลัก");
+            return;
+        }
+
+        const url = "https://script.google.com/macros/s/AKfycbyAELsWSmfF0MxMI-rVfSPQIYhmhoJTHfvrDLpd5ud27W_Gml_de4ycRczwSurNvw/exec";
+        
+        const data = {
+            userId: userId, // userId เป็นข้อความแน่นอน
+            firstName: firstName,
+            lastName: lastName,
+            studentId: studentId, // studentId เป็นข้อความแน่นอน
+            phoneNumber: phoneNumber
+        };
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Response:", data);
+            if (data.status === "success") {
+                alert("Registration successful");
+                liff.closeWindow(); // ปิด LIFF หลังจากลงทะเบียนสำเร็จ
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", initializeLiff);
+</script>
                 console.log("Response:", data);
                 if (data.status === "success") {
                     alert("Registration successful");
