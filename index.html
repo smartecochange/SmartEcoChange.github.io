@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Smart EcoChange</title>
-    <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+    <title>Register SmartecoChange</title>
+    <script src="https://jncpmz37bpzt.statuspage.io/embed/script.js"></script>
     <style>
         body {
             background-color: #e9f5ff; /* Light blue background */
@@ -114,7 +114,7 @@
             
             <button type="button" onclick="sendData()">Submit</button>
         </form>
-        <div class="footer">Powered by Smart EcoChange</div>
+        <div class="footer">Powered by BottleBomb</div>
     </div>
 
     <script>
@@ -157,7 +157,7 @@
             const studentId = document.getElementById("studentId").value.trim();
             const phoneNumber = document.getElementById("phoneNumber").value.trim();
 
-            const url = "https://script.google.com/macros/s/AKfycbyAELsWSmfF0MxMI-rVfSPQIYhmhoJTHfvrDLpd5ud27W_Gml_de4ycRczwSurNvw/exec";
+            const url = "https://script.google.com/macros/s/AKfycbzPYWaYvmUUWdNys4h47LNgc9f1PU4cogliSE3r621Spt1xY1ZI_GZXy3aUe0N-xN8/exec";
             const params = new URLSearchParams({
                 userId: userId,
                 firstName: firstName,
@@ -187,7 +187,7 @@
             })
             .catch(error => {
                 console.error("Error:", error);
-                alert("successful.");
+                alert("Error in sending data.");
                 liff.closeWindow(); // Close LIFF after error
             });
         }
